@@ -51,14 +51,16 @@
                     <h1>Parent Login</h1>
                    </div>
                 </div>
-                         <form action="" method="" name="login">
+                         <form [formGroup]="loginForm">
                                  <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" name="email"  class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                    <label for="UserName">User Name</label>
+                                    <input type="text" name="UserName"  formControlName="userName" class="form-control" id="UserName" aria-describedby="UserNameHelp" placeholder="Enter Username">
+                                    <span *ngIf="isValid('userName')">Username cannot be blank</span>
                                  </div>
                                  <div class="form-group">
-                                    <label for="exampleInputEmail1">Password</label>
-                                    <input type="password" name="password" id="password"  class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
+                                    <label for="Password">Password</label>
+                                    <input type="password" name="password" id="password"  formControlName="password" class="form-control" aria-describedby="PasswordHelp" placeholder="Enter Password">
+                                    <span *ngIf="isValid('password')">Password cannot be blank</span>
                                  </div>
                                  <div class="form-group">
                                   <label class="checkbox pull-left">
@@ -67,7 +69,7 @@
                                 </label>
                                  </div>
                                  <div class="col-md-12 text-center form-group">
-                                    <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
+                                    <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm" (click)="login()">Login</button>
                                  </div>
                                  <div class="form-group">
                                   <p class="text-center">
