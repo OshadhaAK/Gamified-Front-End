@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,13 @@ export class LoginService {
   login(body: any){
     return this.http.post(this.url + 'login', body, {
       observe: 'body'
+    });
+  }
+
+  getUserName(){
+    return this.http.get(this.url + 'username', {
+      observe: 'body',
+      params: new HttpParams().append('token', localStorage.getItem('token'))
     });
   }
 }
