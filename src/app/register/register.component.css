@@ -1,0 +1,10 @@
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 40vh; /* These two lines are counted as one :-)       */
+  
+    align-items: center;
+  }
+  .form-group {
+    width: 40%;
+    margin-bottom: 0;
+  }

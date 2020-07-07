@@ -12,6 +12,7 @@ import { from } from 'rxjs';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  
   constructor(private loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.loginForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
