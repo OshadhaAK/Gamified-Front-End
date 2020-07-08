@@ -46,9 +46,6 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get(controlName).invalid && this.registerForm.get(controlName).touched;
   }
 
-  isMatch(controlName){
-    return this.registerForm.get(controlName).invalid && this.registerForm.get(controlName).touched;
-  }
 
   // passValidator(control: AbstractControl){
   //   if(control && (control.value != null || control.value != undefined)){
@@ -95,12 +92,14 @@ export class RegisterComponent implements OnInit {
 
   submit(){
     console.log(this.registerForm.value)
-    this.registerService.register(this.registerForm.value).subscribe(
-      data => this.successMessage = 'Registration Success!',
-      error => this.successMessage = 'Registration Failed!'
+    if(this.registerForm.valid){
+    this.registerService.register(this.registerForm.value).subscribe(data => {
+      this.successMessage = 'Registration Success!'; 
+    },error => this.successMessage = 'Registration Failed!'
     );
 
   }
+}
   onChange(newValue) {
     console.log(newValue);
   }
