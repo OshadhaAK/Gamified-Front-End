@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { isFormattedError } from '@angular/compiler';
 
 @Component({
   selector: 'app-register',
@@ -11,8 +12,16 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
+  form1: any;
+  form2: any;
+  form3: any;
 
   constructor(private router: Router) {
+
+    this.form1 = true;
+    this.form2 = false;
+    this.form3 = false;
+
     this.registerForm = new FormGroup({
       studentName: new FormControl(null, Validators.required),
       grade: new FormControl(null,Validators.required),
@@ -49,6 +58,15 @@ export class RegisterComponent implements OnInit {
       }
     }
     return null;
+  }
+  next(btnName: string){
+    console.log(btnName)
+    if(btnName === 'buttonRef1'){
+      if(this.registerForm.get('studentName') !== null || this.registerForm.get('studentName') !== undefined ){
+        console.log("a",this.registerForm.get('studentName'))
+      }
+    }
+
   }
 
 }

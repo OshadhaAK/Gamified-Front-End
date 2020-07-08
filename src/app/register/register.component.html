@@ -14,10 +14,10 @@
 
 
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <button class="btn btn btn-outline-light my-2 my-sm-0" type="submit">Sign Up</button>&nbsp;&nbsp;
-            <button class="btn btn btn-outline-light my-2 my-sm-0" type="submit">Login</button>
-        </form>
+        <div class="form-inline my-2 my-lg-0">
+            <button class="btn btn btn-outline-light my-2 my-sm-0" type="submit" [routerLink]="['/register']">Sign Up</button>&nbsp;&nbsp;
+        <button class="btn btn btn-outline-light my-2 my-sm-0" type="submit" [routerLink]="['/login']">Login</button>
+        </div>
     </div>
 </nav>
 <div class="container">
@@ -29,94 +29,112 @@
 
     <div class="jumbotron vertical-center" style="padding-bottom: 32px; padding-top: 32px;">
 
-        <p class="lead">Fill the following information regarding the student</p>
-        <hr class="my-4">
         <form class="form-horizontal" [formGroup]="registerForm">
             <fieldset>
               
-              <div *ngIf="true">
+              <div *ngIf="form1">
+                <p class="lead">Fill the following information regarding the student</p>
+                <hr class="my-4">
                 <div class="control-group">
                     <!-- StudentName -->
                     <label class="control-label"  for="studentName">Name</label>
                     <div class="controls">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="" aria-label="studentName" aria-describedby="basic-addon1" formControlName="studentName">
-                          </div>
+                            <p *ngIf="isValid('studentName')" class="help-block">Student's name must not be empty</p>
+                        </div>
                       
-                      <p class="help-block">Student's name must not be empty</p>
+                      
                     </div>
                   </div>
                   
                   
-                  <div class="control-group" style="margin-bottom: 2%;">
+                  <div class="control-group" style="margin-bottom: 2%;margin-top: 2%;">
                     <!-- grade -->
                     <label class="control-label" for="grade">Grade</label>
-                    <div class="form-group">
+                    <div class="controls">
+                        <div class="form-group">
                         
-                        <select class="form-control" id="grade" formControlName="grade">
-                            <option selected>Choose...</option>
-                            <option value="Grade 1">Grade 1</option>
-                            <option value="Grade 2">Grade 2</option>
-                        </select>
-                      </div>
+                            <select class="form-control" id="grade" formControlName="grade">
+                                <option selected>Choose...</option>
+                                <option value="Grade 1">Grade 1</option>
+                                <option value="Grade 2">Grade 2</option>
+                            </select>
+                            <p *ngIf="isValid('grade')" class="help-block">Grade Should not be blank</p>
+                          </div>
+                    </div>
+                    
                   </div>
-                  <div class="control-group">
+                  <div class="control-group" style="text-align: center;">
                     <!-- Button -->
                     <div class="controls">
-                      <button class="btn btn-success float-right" >Next</button>
+                      <button #buttonRef1 class="btn btn-primary float-right mybtn btn-lg" (click)="next('buttonRef1')">Next</button>
+
                       
                     </div>
                   </div>
               </div>
-              <div *ngIf="false">
+              <div *ngIf="form2">
+                <p class="lead">Face the student's face in front of the camera for face identification</p>
+                <hr class="my-4">
                 <div class="control-group">
                     <!-- Username -->
                     <label class="control-label"  for="faceID">faceID</label>
                     <div class="controls">
                       <input type="text" id="faceID" name="faceID" placeholder="" class="input-xlarge" formControlName="faceID">
-                      <p class="help-block">faceID</p>
+                      
                     </div>
                   </div>
                   <div class="control-group">
                     <!-- Button -->
                     <div class="controls">
-                      <button class="btn btn-success">Next</button>
+                      <button class="btn btn-primary float-right mybtn btn-lg">Next</button>
                       
                     </div>
                   </div>
               </div>
-              <div *ngIf="false">
-                <div class="control-group">
+              <div *ngIf="form3">
+                
+                <div class="control-group" style="margin-top: 2%;">
                     <!-- Username -->
                     <label class="control-label"  for="username">Username</label>
                     <div class="controls">
-                      <input type="text" id="username" name="username" placeholder="" class="input-xlarge" formControlName="userName">
-                      <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+                        <div class="form-group">
+                            <input type="text" id="username" name="username" placeholder="" class="form-control" formControlName="userName">
+                        </div>
+                      
+                      <p *ngIf="isValid(userName)" class="help-block">Username can contain any letters or numbers, without spaces</p>
                     </div>
                   </div>
                   
-                  <div class="control-group">
+                  <div class="control-group" style="margin-top: 2%;">
                     <!-- Password-->
                     <label class="control-label" for="password">Password</label>
                     <div class="controls">
-                      <input type="password" id="password" name="password" placeholder="" class="input-xlarge" formControlName="password">
-                      <p class="help-block">Password should be at least 4 characters</p>
+                        <div class="form-group">
+                            <input type="password" id="password" name="password" placeholder="" class="form-control" formControlName="password">
+                        </div>
+                      
+                      <p *ngIf="isValid(password)" class="help-block">Password should be at least 4 characters</p>
                     </div>
                   </div>
                
-                  <div class="control-group">
+                  <div class="control-group" style="margin-top: 2%;">
                     <!-- Password -->
                     <label class="control-label"  for="password_confirm">Password (Confirm)</label>
                     <div class="controls">
-                      <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge" formControlName="cnfpass">
-                      <p class="help-block">Please confirm password</p>
+                        <div class="form-group">
+                            <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="form-control" formControlName="cnfpass">
+                        </div>
+                      
+                      <p *ngIf="isValid(cnfpass)" class="help-block">Please confirm password</p>
                     </div>
                   </div>
-                  <div class="control-group">
+                  <div class="control-group" style="margin-top: 3%;">
                     <!-- Button -->
                     <div class="controls">
-                        <button class="btn btn-success">Cancel</button>
-                        <button class="btn btn-success">Submit</button>
+                        <button class="btn btn-danger mybtn btn-lg">Cancel</button>
+                        <button class="btn btn-primary float-right mybtn btn-lg">Submit</button>
                       
                     </div>
                   </div>
