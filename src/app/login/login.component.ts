@@ -40,5 +40,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  getCapture(event) {
+    console.log(event);
+  }
 
 }

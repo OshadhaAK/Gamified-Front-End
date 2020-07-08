@@ -137,7 +137,7 @@
                 <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="form-control"
                   formControlName="cnfpass" compare="password">
                 <p *ngIf="isValid('cnfpass')" class="help-block text-danger">Password does not match</p>
-                
+
               </div>
 
 
@@ -148,10 +148,12 @@
             <!-- Button -->
             <div class="controls">
               <button type="button" class="btn btn-danger mybtn btn-lg" [routerLink]="['/login']">Cancel</button>
-              <button type="button" class="btn btn-primary float-right mybtn btn-lg" (click)="submit()" [disabled]="registerForm.invalid" data-toggle="modal" data-target="#exampleModal">Submit</button>
+              <button type="button" class="btn btn-primary float-right mybtn btn-lg" (click)="submit()"
+                [disabled]="registerForm.invalid" data-toggle="modal" data-target="#exampleModal">Submit</button>
 
             </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -164,8 +166,9 @@
                     You have registered successfully! Please log in again!
                   </div>
                   <div class="modal-footer">
-                    
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" [routerLink]="['/login']">OK</button>
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                      [routerLink]="['/login']">OK</button>
                   </div>
                 </div>
               </div>
