@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
       faceID: new FormControl(null,Validators.required),
       userName: new FormControl(null,Validators.required),
       password: new FormControl(null,Validators.required),
-      cnfpass: new FormControl(null,this.passValidator)
+      cnfpass: new FormControl(null,Validators.required)
     });
 
     this.registerForm.controls.password.valueChanges.subscribe(
@@ -46,22 +46,26 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get(controlName).invalid && this.registerForm.get(controlName).touched;
   }
 
-  passValidator(control: AbstractControl){
-    if(control && (control.value != null || control.value != undefined)){
-      const cnfpassValue = control.value;
-
-      const passControl = control.root.get('password');
-      if(passControl) {
-        const passValue = passControl.value;
-        if(passValue != cnfpassValue || passValue == '') {
-          return {
-            isError: true
-          };
-        }
-      }
-    }
-    return null;
+  isMatch(controlName){
+    return this.registerForm.get(controlName).invalid && this.registerForm.get(controlName).touched;
   }
+
+  // passValidator(control: AbstractControl){
+  //   if(control && (control.value != null || control.value != undefined)){
+  //     const cnfpassValue = control.value;
+
+  //     const passControl = control.root.get('password');
+  //     if(passControl) {
+  //       const passValue = passControl.value;
+  //       if(passValue != cnfpassValue || passValue == '') {
+  //         return {
+  //           isError: true
+  //         };
+  //       }
+  //     }
+  //   }
+  //   return null;
+  // }
   next(btnName: string){
     console.log(btnName)
     if(btnName == 'buttonRef1'){

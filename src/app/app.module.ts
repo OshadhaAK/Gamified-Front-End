@@ -12,6 +12,7 @@ import { Grade2Component } from './grade2/grade2.component';
 import { LoginService } from './services/login.service';
 import { RegisterService } from './services/register.service';
 import { from } from 'rxjs';
+import { CompareValidatorDirective } from './shared/compare-validator.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { from } from 'rxjs';
     DashboardComponent,
     RegisterComponent,
     Grade1Component,
-    Grade2Component
+    Grade2Component,
+    CompareValidatorDirective
   ],
   imports: [
     FormsModule,
