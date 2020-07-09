@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
   }
 
   imageChanged(data) {
-    console.log(data)
     this.imageUrl = data;
     this.ref.detectChanges();
   }

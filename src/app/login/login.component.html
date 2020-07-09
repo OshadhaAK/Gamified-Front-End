@@ -29,7 +29,7 @@
 
 <div class="container-fluid">
   <div class="row align-items-center justify-content-around">
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin-top: 3%;">
       <div class="d-flex justify-content-center ">
         <div class="container">
           <div id="first">
@@ -37,17 +37,20 @@
               <div class="logo mb-3">
                 <div class="col-md-12 text-center">
                   <h1>Student Login</h1>
-                  <div class="content">
-                    <img [hidden]="!imageUrl" [src]="imageUrl" />
-                    
-                    <!-- <app-camera-snapshot [imageUrl]="imageUrl" (imageCreated)="imageChanged($event)">
-                    </app-camera-snapshot> -->
-
-                  </div>
+                  
                 </div>
+                
               </div>
+              <div class="content myform form" style="border-color: blue;">
+                <img [hidden]="!imageUrl" [src]="imageUrl"/>
 
+                <app-camera-snapshot [imageUrl]="imageUrl" (imageCreated)="imageChanged($event)">
+                </app-camera-snapshot>
 
+              </div>
+              <div class="buttons" style="margin-top: 2%;">
+                <button class=" btn btn-block mybtn btn-primary tx-tfm" (click)="login()">Login</button>
+              </div>
             </div>
           </div>
         </div>
@@ -56,7 +59,7 @@
     <div class="col-md-4" style="margin-top: 3%;">
       <div class="container">
         <div id="first">
-          <div class="myform form ">
+          <div class="myform form">
             <div class="logo mb-3">
               <div class="col-md-12 text-center">
                 <h1>Parent Login</h1>
