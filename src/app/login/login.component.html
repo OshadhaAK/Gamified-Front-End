@@ -27,7 +27,7 @@
   </div>
 </div>
 
-<div class="container-fluid" style="margin-top: 4%;">
+<div class="container-fluid">
   <div class="row align-items-center justify-content-around">
     <div class="col-md-4">
       <div class="d-flex justify-content-center ">
@@ -37,21 +37,23 @@
               <div class="logo mb-3">
                 <div class="col-md-12 text-center">
                   <h1>Student Login</h1>
+                  <div class="content">
+                    <img [hidden]="!imageUrl" [src]="imageUrl" />
+                    
+                    <!-- <app-camera-snapshot [imageUrl]="imageUrl" (imageCreated)="imageChanged($event)">
+                    </app-camera-snapshot> -->
+
+                  </div>
                 </div>
               </div>
-              <div class="content">
-                <video id="video"  type="video/mp4" controls></video>
-                <button onclick="capture()">Capture</button>
-                <canvas id="canvas" style="overflow:auto"></canvas>
 
-              </div>
 
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin-top: 3%;">
       <div class="container">
         <div id="first">
           <div class="myform form ">

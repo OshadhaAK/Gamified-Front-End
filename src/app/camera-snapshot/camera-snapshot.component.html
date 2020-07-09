@@ -1,0 +1,6 @@
+<div class="camera-snapshot" (click)="getCameraImage()">
+    <!--  <md-icon [class.small]="imageUrl">camera</md-icon> -->
+    <i class="fas fa-camera"></i>
+    <canvas width="400" height="380" #canvas hidden="true"></canvas>
+    <video [hidden]="imageUrl" width="400" height="380" autoplay #video></video>
+</div>

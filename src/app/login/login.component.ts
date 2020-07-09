@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../services/login.service';
@@ -12,8 +12,9 @@ import { from } from 'rxjs';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  
-  constructor(private loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute) {
+  imageUrl: any;
+
+  constructor(private loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute,private ref: ChangeDetectorRef) {
     this.loginForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required)
@@ -40,8 +41,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  getCapture(event) {
-    console.log(event);
+  imageChanged(data) {
+    console.log(data)
+    this.imageUrl = data;
+    this.ref.detectChanges();
   }
 
 }
