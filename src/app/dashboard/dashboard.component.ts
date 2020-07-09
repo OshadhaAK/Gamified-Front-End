@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
+import { mergeAnalyzedFiles } from '@angular/compiler';
 
 
 @Component({
@@ -10,23 +12,47 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  userName = '';
-  constructor(private loginService: LoginService, private router: Router) {
+  userName: any;
+  grade1: any;
+  grade2: any;
+  message: any;
+
+  constructor(private loginService: LoginService, private router: Router, private dataService: DataService) {
+    
     if(localStorage.getItem('token') != null){
-      loginService.getUserName().subscribe(
+      this.loginService.getUserName().subscribe(
         data => this.userName = data.toString(),
         error => this.router.navigate(['/login'])
-      )
+      );
+      
     }else{
       this.router.navigate(['/login']);
     }
+    
+    
    }
 
   ngOnInit(): void {
+    this.dataService.currentMessage.subscribe(message => this.message = message);
+    this.loginService.getGrade(this.message).subscribe((data: any) => {
+      console.log("grade",data.grade);
+      if(data.grade === 'Grade 1'){
+        this.grade1 = true;
+        this.grade2 = false;
+      }
+      if(data.grade === 'Grade 2'){
+        this.grade1 = false;
+        this.grade2 = true;
+      }
+
+    },(error: any) => {
+
+    });
   }
 
   logout(){
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
+
 }

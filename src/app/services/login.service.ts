@@ -22,4 +22,11 @@ export class LoginService {
       params: new HttpParams().append('token', localStorage.getItem('token'))
     });
   }
+
+  getGrade(userName){
+    console.log("uname",userName)
+    return this.http.get(this.url + 'login/' + userName, {
+      observe: 'body',
+    });
+  }
 }

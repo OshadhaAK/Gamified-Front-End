@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../services/login.service';
+import { DataService } from '../services/data.service';
 import { from } from 'rxjs';
 
 @Component({
@@ -13,8 +14,9 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   imageUrl: any;
+  message:any;
 
-  constructor(private loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute,private ref: ChangeDetectorRef) {
+  constructor(private loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute,private ref: ChangeDetectorRef, private dataService: DataService) {
     this.loginForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required)
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.dataService.currentMessage.subscribe(message => this.message = message)
   }
 
   isValid(controlName){
@@ -33,11 +36,12 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
     if(this.loginForm.valid){
       this.loginService.login(this.loginForm.value).subscribe(data => {
-        console.log(data);
         localStorage.setItem('token', data.toString());
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/dashboard']);
+        
       },error => {}
       );
+      this.newMessage()
     }
   }
 
@@ -46,4 +50,7 @@ export class LoginComponent implements OnInit {
     this.ref.detectChanges();
   }
 
+  newMessage(){
+    this.dataService.changeMessage(this.loginForm.value.userName)
+  }
 }
