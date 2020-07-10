@@ -37,13 +37,17 @@
               <div class="logo mb-3">
                 <div class="col-md-12 text-center">
                   <h1>Student Login</h1>
-                  
-                </div>
-                
-              </div>
-              <div class="content myform form" style="border-color: blue;">
-                
 
+                </div>
+
+              </div>
+              <div class="card text-center">
+                <img [hidden]="!imageUrl" [src]="imageUrl"/>
+                <div class="card-body" style="align-items: center; justify-content: center;display: flex;">
+                  
+                  <video [hidden]="imageUrl" id="video" width="97%" autoplay muted #video></video>
+
+                </div>
               </div>
               <div class="buttons" style="margin-top: 2%;">
                 <button class=" btn btn-block mybtn btn-primary tx-tfm" (click)="login()">Login</button>
@@ -61,7 +65,7 @@
               <div class="col-md-12 text-center">
                 <h1>Parent Login</h1>
               </div>
-              
+
             </div>
             <form [formGroup]="loginForm">
               <div class="form-group">

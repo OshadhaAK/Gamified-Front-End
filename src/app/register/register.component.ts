@@ -24,8 +24,9 @@ export class RegisterComponent implements OnInit {
   private mediaStream: any;
   @ViewChild('video') private video: ElementRef;
 
+ 
   constructor(private router: Router, private registerService: RegisterService, private activatedRoute: ActivatedRoute, private ref: ChangeDetectorRef) {
-
+    
     this.form1 = true;
     this.form2 = false;
     this.form3 = false;
@@ -48,7 +49,8 @@ export class RegisterComponent implements OnInit {
     this.getCameraImage();
 
   }
-
+  
+  
   isValid(controlName) {
     return this.registerForm.get(controlName).invalid && this.registerForm.get(controlName).touched;
   }
