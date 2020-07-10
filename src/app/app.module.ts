@@ -13,10 +13,10 @@ import { LoginService } from './services/login.service';
 import { RegisterService } from './services/register.service';
 import { from } from 'rxjs';
 import { CompareValidatorDirective } from './shared/compare-validator.directive';
-import { CameraSnapshotComponent } from './camera-snapshot/camera-snapshot.component';
-import { BlockUiComponent } from './block-ui/block-ui.component';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import {DataService} from './services/data.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,9 +25,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     RegisterComponent,
     Grade1Component,
     Grade2Component,
-    CompareValidatorDirective,
-    CameraSnapshotComponent,
-    BlockUiComponent
+    CompareValidatorDirective
   ],
   imports: [
     FormsModule,
@@ -37,7 +35,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AppRoutingModule,
     FontAwesomeModule
   ],
-  providers: [LoginService, RegisterService],
+  providers: [LoginService, RegisterService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

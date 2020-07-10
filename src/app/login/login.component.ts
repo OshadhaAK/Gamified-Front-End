@@ -13,10 +13,10 @@ import { from } from 'rxjs';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  imageUrl: any;
+  
   message:any;
 
-  constructor(private loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute,private ref: ChangeDetectorRef, private dataService: DataService) {
+  constructor(private loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute, private dataService: DataService) {
     this.loginForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required)
@@ -45,10 +45,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  imageChanged(data) {
-    this.imageUrl = data;
-    this.ref.detectChanges();
-  }
+  
 
   newMessage(){
     this.dataService.changeMessage(this.loginForm.value.userName)

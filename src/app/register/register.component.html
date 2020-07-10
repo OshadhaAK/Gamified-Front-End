@@ -33,7 +33,7 @@
     <form class="form-horizontal" [formGroup]="registerForm">
       <fieldset>
 
-        <div *ngIf="form1">
+        <div *ngIf="false">
           <p class="lead">Fill the following information regarding the student</p>
           <hr class="my-4">
           <div class="control-group">
@@ -77,15 +77,22 @@
             </div>
           </div>
         </div>
-        <div *ngIf="form2">
+        <div *ngIf="true">
           <p class="lead">Face the student's face in front of the camera for face identification</p>
           <hr class="my-4">
-          <div class="control-group">
+          <div class="control-group" hidden>
             <!-- Username -->
             <label class="control-label" for="faceID">faceID</label>
             <div class="controls">
               <input type="text" id="faceID" name="faceID" placeholder="" class="input-xlarge" formControlName="faceID">
 
+            </div>
+          </div>
+          <div class="card text-center" style="align-items: center;">
+            <div class="card-body">
+              <h5 class="card-title"><fa-icon [icon]="faCamera" ></fa-icon></h5>
+              <video id="video" autoplay muted #video></video>
+              
             </div>
           </div>
           <div class="control-group">
@@ -97,7 +104,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="form3">
+        <div *ngIf="false">
 
           <div class="control-group" style="margin-top: 2%;">
             <!-- Username -->
