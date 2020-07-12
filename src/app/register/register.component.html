@@ -33,17 +33,17 @@
     <form class="form-horizontal" [formGroup]="registerForm">
       <fieldset>
 
-        <div *ngIf="false">
+        <div *ngIf="form1">
           <p class="lead">Fill the following information regarding the student</p>
           <hr class="my-4">
           <div class="control-group">
             <!-- StudentName -->
-            <label class="control-label" for="studentName">Name</label>
+            <label class="control-label" for="studentName">Student Name</label>
             <div class="controls">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="" aria-label="studentName"
-                  aria-describedby="basic-addon1" formControlName="studentName">
-                <p *ngIf="isValid('studentName')" class="help-block">Student's name must not be empty</p>
+                  aria-describedby="basic-addon1" formControlName="studentname">
+                <p *ngIf="isValid('studentname')" class="help-block  text-danger">Student's name must not be empty</p>
               </div>
 
 
@@ -77,21 +77,15 @@
             </div>
           </div>
         </div>
-        <div *ngIf="true">
+        <div *ngIf="form2">
           <p class="lead">Face the student's face in front of the camera for face identification</p>
           <hr class="my-4">
-          <div class="control-group" hidden>
-            <!-- Username -->
-            <label class="control-label" for="faceID">faceID</label>
-            <div class="controls">
-              <input type="text" id="faceID" name="faceID" placeholder="" class="input-xlarge" formControlName="faceID">
 
-            </div>
-          </div>
-          <div class="card text-center" >
-            <div class="card-body" style="align-items: center; justify-content: center;display: flex;">
-              <h5 class="card-title"></h5>
-              <video id="video" autoplay muted #video></video>
+          <div class="card text-center">
+            <i class="fas fa-camera"></i>
+            <div class="card-body" style="align-items: center; justify-content: center;">
+              <img [hidden]="!imageUrl" [src]="imageUrl"/>
+              <app-camera-snapshot [imageUrl]="imageUrl" (imageCreated)="imageChanged($event)"></app-camera-snapshot>
               
             </div>
           </div>
@@ -104,7 +98,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="false">
+        <div *ngIf="form3">
 
           <div class="control-group" style="margin-top: 2%;">
             <!-- Username -->
@@ -112,8 +106,8 @@
             <div class="controls">
               <div class="form-group">
                 <input type="text" id="username" name="username" placeholder="" class="form-control"
-                  formControlName="userName">
-                <p *ngIf="isValid('userName')" class="help-block text-danger">Username can contain any letters or
+                  formControlName="username">
+                <p *ngIf="isValid('username')" class="help-block text-danger">Username can contain any letters or
                   numbers, without spaces</p>
               </div>
 

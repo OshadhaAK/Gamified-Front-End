@@ -29,4 +29,8 @@ export class LoginService {
       observe: 'body',
     });
   }
+
+  faceLogin(imageUrl: string){
+    
+  }
 }

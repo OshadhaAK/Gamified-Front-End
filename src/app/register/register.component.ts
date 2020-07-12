@@ -5,8 +5,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { isFormattedError } from '@angular/compiler';
 import { RegisterService } from '../services/register.service';
 import { error } from '@angular/compiler/src/util';
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
+import { Subject, Observable } from 'rxjs';
+import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -18,24 +19,24 @@ export class RegisterComponent implements OnInit {
   form1: any;
   form2: any;
   form3: any;
+  multipleImages = [];
   successMessage: any;
-  faCamera = faCamera;
-  cameraSrc: any;
-  private mediaStream: any;
-  @ViewChild('video') private video: ElementRef;
-
+  imageUrl: any;
  
+
+
+
   constructor(private router: Router, private registerService: RegisterService, private activatedRoute: ActivatedRoute, private ref: ChangeDetectorRef) {
-    
+
     this.form1 = true;
     this.form2 = false;
     this.form3 = false;
 
     this.registerForm = new FormGroup({
-      studentName: new FormControl(null, Validators.required),
+      studentname: new FormControl(null, Validators.required),
       grade: new FormControl(null, Validators.required),
-      faceID: new FormControl(null, Validators.required),
-      userName: new FormControl(null, Validators.required),
+      username: new FormControl(null, Validators.required),
+      image: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
       cnfpass: new FormControl(null, Validators.required)
     });
@@ -46,11 +47,11 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCameraImage();
 
+   
   }
-  
-  
+
+
   isValid(controlName) {
     return this.registerForm.get(controlName).invalid && this.registerForm.get(controlName).touched;
   }
@@ -75,7 +76,7 @@ export class RegisterComponent implements OnInit {
   next(btnName: string) {
     console.log(btnName)
     if (btnName == 'buttonRef1') {
-      if ((this.registerForm.get('studentName').value != null || this.registerForm.get('studentName').value != undefined) && (this.registerForm.get('grade').value != null || this.registerForm.get('grade').value != undefined)) {
+      if ((this.registerForm.get('studentname').value != null || this.registerForm.get('studentname').value != undefined) && (this.registerForm.get('grade').value != null || this.registerForm.get('grade').value != undefined)) {
         this.form1 = false;
         this.form2 = true;
         this.form3 = false;
@@ -86,7 +87,11 @@ export class RegisterComponent implements OnInit {
       }
     }
     if (btnName == 'buttonRef2') {
-      if ((this.registerForm.get('faceID').value != null || this.registerForm.get('faceID').value != undefined)) {
+      this.form1 = false;
+      this.form2 = false;
+      this.form3 = true;
+      this.registerForm.controls['image'].setValue(this.imageUrl);
+      /* if ((this.registerForm.get('faceID').value != null || this.registerForm.get('faceID').value != undefined)) {
         this.form1 = false;
         this.form2 = false;
         this.form3 = true;
@@ -94,38 +99,62 @@ export class RegisterComponent implements OnInit {
       }
       else {
         console.log("Error")
-      }
+      } */
     }
 
   }
 
   submit() {
-    console.log(this.registerForm.value)
+    console.log("image")
     if (this.registerForm.valid) {
+      
+      console.log("form", this.registerForm)
       this.registerService.register(this.registerForm.value).subscribe(data => {
         this.successMessage = 'Registration Success!';
+        
       }, error => this.successMessage = 'Registration Failed!'
       );
 
     }
+    console.log(this.successMessage);
   }
   onChange(newValue) {
     console.log(newValue);
   }
+  imageChanged(data) {
+    this.imageUrl = data;
+    this.ref.detectChanges();
+  }
+  
 
-  getCameraImage() {
-    navigator.getUserMedia(
-      { video: true },
-      mediaStream => {
-        this.mediaStream = mediaStream;
-        this.video.nativeElement.srcObject = mediaStream;
-        setTimeout(() => {
-          console.log(this.video.nativeElement.innerText);
-          this.mediaStream.getVideoTracks()[0].stop();
-          this.ref.detectChanges();
-        }, 3000);
-      },
-      error => { console.log(error) });
+  /*  selectImage(event) {
+     if (event.target.files.length > 0) {
+       const file = event.target.files[0];
+       this.images = file;
+       console.log(this.images)
+     }
+   } */
+
+  /* selectMultipleImage(event){
+    if (event.target.files.length > 0) {
+      this.multipleImages = event.target.files;
+    }
+  } */
+
+  /* onSubmit(){
+    const formData = new FormData();
+    formData.append('file', this.images);
+    this.registerService.upload(formData).subscribe((data) => {
+      console.log("image sent successfully")
+    }, error => this.successMessage = 'Image sending Failed!'
+    );
+    
   }
 
+  onMultipleSubmit(){
+    const formData = new FormData();
+    for(let img of this.multipleImages){
+      formData.append('files', img);
+    }
+  } */
 }

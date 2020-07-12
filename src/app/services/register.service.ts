@@ -10,9 +10,14 @@ export class RegisterService {
 
   constructor(private http: HttpClient) { }
 
-  register(body: any){
-    return this.http.post(this.url + 'register', body, {
+  register(body: any) {
+    console.log('hit')
+    return this.http.post(this.url + 'register', body,{
       observe: 'body'
     });
+  }
+
+  upload(formData) {
+    return this.http.post<any>(this.url + 'file', formData);
   }
 }

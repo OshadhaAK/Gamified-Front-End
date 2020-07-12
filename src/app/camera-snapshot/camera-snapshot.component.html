@@ -1,0 +1,5 @@
+<div class="camera-snapshot" (click)="getCameraImage()">
+    <fa-icon [icon]="faCamera">sss</fa-icon>
+    <canvas width="500" height="380" #canvas hidden="true"></canvas>
+    <video [hidden]="imageUrl" width="100%" autoplay #video></video>
+</div>
