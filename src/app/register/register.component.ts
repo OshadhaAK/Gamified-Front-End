@@ -114,9 +114,9 @@ export class RegisterComponent implements OnInit {
         
       }, error => this.successMessage = 'Registration Failed!'
       );
-
+      console.log(this.successMessage);
     }
-    console.log(this.successMessage);
+    
   }
   onChange(newValue) {
     console.log(newValue);
