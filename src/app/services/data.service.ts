@@ -11,7 +11,8 @@ export class DataService {
 
   constructor() { }
 
-  changeMessage(message: string) {
-    this.messageSource.next(message)
+  changeMessage(message: string, loginmethod: string) {
+    console.log("msg",message);
+    this.messageSource.next(message+","+loginmethod);
   }
 }

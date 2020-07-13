@@ -86,7 +86,7 @@
               <h5 class="card-title">
                 <fa-icon [icon]="faCamera"></fa-icon>
               </h5>
-              <!-- <img [hidden]="!imageUrl" [src]="imageUrl"/> -->
+              <img [hidden]="imageUrl" [src]="imageUrl"/>
               <app-camera-snapshot [imageUrl]="imageUrl" (imageCreated)="imageChanged($event)"></app-camera-snapshot>
               
             </div>

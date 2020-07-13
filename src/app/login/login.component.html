@@ -34,28 +34,35 @@
         <div class="container">
           <div id="first">
             <div class="myform form ">
-              <div class="logo mb-3">
+              <div class="logo mb-4">
                 <div class="col-md-12 text-center">
                   <h1>Student Login</h1>
 
                 </div>
-                <div class="card text-center">
-                  <div class="card-body" style="align-items: center; justify-content: center;">
-                    <h5 class="card-title">
-                      <fa-icon [icon]="faCamera"></fa-icon>
-                    </h5>
-
-                    <!-- <img [hidden]="!imageUrl" [src]="imageUrl" style="flex-shrink: 0;min-width: 100%;min-height: 100%"> -->
-                    <app-camera-snapshot [imageUrl]="imageUrl" (imageCreated)="imageChanged($event)">
-                    </app-camera-snapshot>
-
-
+                <form class="form-horizontal" [formGroup]="faceLoginForm">
+                  <div class="form-group">
+                    <label for="studentname">Student Name</label>
+                    <input type="text" name="studentname" class="form-control" id="studentname"
+                      formControlName="studentname" aria-describedby="studentnameHelp" placeholder="Enter Student Name">
+                    <span *ngIf="isfilled('studentname')" class="help-block  text-danger">Student Name cannot be blank</span>
                   </div>
-                </div>
+                  <div class="card text-center">
+                    <div class="card-body" style="align-items: center; justify-content: center;">
+                      <h5 class="card-title">
+                        <fa-icon [icon]="faCamera"></fa-icon>
+                      </h5>
+                      <img [hidden]="imageUrl" [src]="imageUrl">
+                      <app-camera-snapshot [imageUrl]="imageUrl" (imageCreated)="imageChanged($event)">
+                      </app-camera-snapshot>
+
+
+                    </div>
+                  </div>
+                </form>
               </div>
 
               <div class="buttons" style="margin-top: 2%;">
-                <button class=" btn btn-block mybtn btn-primary tx-tfm" (click)="login()">Login</button>
+                <button class=" btn btn-block mybtn btn-primary tx-tfm" (click)="facelogin()">Login</button>
               </div>
             </div>
           </div>
@@ -75,15 +82,15 @@
             <form [formGroup]="loginForm">
               <div class="form-group">
                 <label for="UserName">User Name</label>
-                <input type="text" name="UserName" formControlName="userName" class="form-control" id="UserName"
+                <input type="text" name="UserName" formControlName="username" class="form-control" id="UserName"
                   aria-describedby="UserNameHelp" placeholder="Enter Username">
-                <span *ngIf="isValid('userName')">Username cannot be blank</span>
+                <span *ngIf="isValid('username')" class="help-block  text-danger">Username cannot be blank</span>
               </div>
               <div class="form-group">
                 <label for="Password">Password</label>
                 <input type="password" name="password" id="password" formControlName="password" class="form-control"
                   aria-describedby="PasswordHelp" placeholder="Enter Password">
-                <span *ngIf="isValid('password')">Password cannot be blank</span>
+                <span *ngIf="isValid('password')" class="help-block  text-danger">Password cannot be blank</span>
               </div>
               <div class="form-group">
                 <label class="checkbox pull-left">

@@ -23,14 +23,31 @@ export class LoginService {
     });
   }
 
-  getGrade(userName){
-    console.log("uname",userName)
-    return this.http.get(this.url + 'login/' + userName, {
+  getStudentName(){
+    return this.http.get(this.url + 'studentname', {
+      observe: 'body',
+      params: new HttpParams().append('token', localStorage.getItem('token'))
+    });
+  }
+
+  getGrade(username){
+    console.log("uname",username)
+    return this.http.get(this.url + 'login/' + username, {
       observe: 'body',
     });
   }
 
-  faceLogin(imageUrl: string){
-    
+  getStudentGrade(studentname){
+    console.log("uname",studentname)
+    return this.http.get(this.url + 'facelogin/' + studentname, {
+      observe: 'body',
+    });
+  }
+
+  faceLogin(body){
+    console.log(body)
+    return this.http.post(this.url + 'facelogin', body, {
+      observe: 'body'
+    });
   }
 }
