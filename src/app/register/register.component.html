@@ -81,10 +81,12 @@
           <p class="lead">Face the student's face in front of the camera for face identification</p>
           <hr class="my-4">
 
-          <div class="card text-center">
-            <i class="fas fa-camera"></i>
+          <div class="card text-center" style="width: 50%;">
             <div class="card-body" style="align-items: center; justify-content: center;">
-              <img [hidden]="!imageUrl" [src]="imageUrl"/>
+              <h5 class="card-title">
+                <fa-icon [icon]="faCamera"></fa-icon>
+              </h5>
+              <!-- <img [hidden]="!imageUrl" [src]="imageUrl"/> -->
               <app-camera-snapshot [imageUrl]="imageUrl" (imageCreated)="imageChanged($event)"></app-camera-snapshot>
               
             </div>

@@ -39,18 +39,21 @@
                   <h1>Student Login</h1>
 
                 </div>
+                <div class="card text-center">
+                  <div class="card-body" style="align-items: center; justify-content: center;">
+                    <h5 class="card-title">
+                      <fa-icon [icon]="faCamera"></fa-icon>
+                    </h5>
 
-              </div>
-              <div class="card text-center">
-                <div class="card-body" style="align-items: center; justify-content: center;display: flex;">
-
-                  <img [hidden]="!imageUrl" [src]="imageUrl" />
-                  <app-camera-snapshot [imageUrl]="imageUrl" (imageCreated)="imageChanged($event)">
-                  </app-camera-snapshot>
+                    <!-- <img [hidden]="!imageUrl" [src]="imageUrl" style="flex-shrink: 0;min-width: 100%;min-height: 100%"> -->
+                    <app-camera-snapshot [imageUrl]="imageUrl" (imageCreated)="imageChanged($event)">
+                    </app-camera-snapshot>
 
 
+                  </div>
                 </div>
               </div>
+
               <div class="buttons" style="margin-top: 2%;">
                 <button class=" btn btn-block mybtn btn-primary tx-tfm" (click)="login()">Login</button>
               </div>

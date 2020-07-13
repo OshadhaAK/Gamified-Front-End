@@ -37,7 +37,7 @@ export class CameraSnapshotComponent implements OnInit {
         setTimeout(() => {
           // create screenshot and emit as dataUrl
           var ctx = this.canvas.nativeElement.getContext('2d');
-          ctx.drawImage(this.video.nativeElement, 0, 0, 500, 380);
+          ctx.drawImage(this.video.nativeElement, 0, 0);
           this.imageUrl = this.canvas.nativeElement.toDataURL('image/jpeg', 1.0)
           this.imageCreated.emit(this.imageUrl);
           

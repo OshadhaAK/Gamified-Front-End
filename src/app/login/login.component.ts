@@ -4,9 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { DataService } from '../services/data.service';
 import { from } from 'rxjs';
-import { WebcamImage } from 'ngx-webcam';
-import { Subject, Observable } from 'rxjs';
-
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +15,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   imageUrl: any;
   message: any;
-  
+  faCamera = faCamera;
+
   constructor(private loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute, private dataService: DataService, private ref: ChangeDetectorRef) {
     this.loginForm = new FormGroup({
       userName: new FormControl(null, Validators.required),

@@ -5,9 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { isFormattedError } from '@angular/compiler';
 import { RegisterService } from '../services/register.service';
 import { error } from '@angular/compiler/src/util';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
-import { Subject, Observable } from 'rxjs';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -22,7 +21,7 @@ export class RegisterComponent implements OnInit {
   multipleImages = [];
   successMessage: any;
   imageUrl: any;
- 
+  faCamera = faCamera;
 
 
 
@@ -87,11 +86,9 @@ export class RegisterComponent implements OnInit {
       }
     }
     if (btnName == 'buttonRef2') {
-      this.form1 = false;
-      this.form2 = false;
-      this.form3 = true;
+      
       this.registerForm.controls['image'].setValue(this.imageUrl);
-      /* if ((this.registerForm.get('faceID').value != null || this.registerForm.get('faceID').value != undefined)) {
+      if ((this.registerForm.get('image').value != null || this.registerForm.get('image').value != undefined)) {
         this.form1 = false;
         this.form2 = false;
         this.form3 = true;
@@ -99,7 +96,7 @@ export class RegisterComponent implements OnInit {
       }
       else {
         console.log("Error")
-      } */
+      }
     }
 
   }
@@ -113,8 +110,9 @@ export class RegisterComponent implements OnInit {
         this.successMessage = 'Registration Success!';
         
       }, error => this.successMessage = 'Registration Failed!'
+      
       );
-      console.log(this.successMessage);
+      
     }
     
   }
