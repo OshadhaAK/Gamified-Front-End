@@ -22,14 +22,16 @@ export class RegisterComponent implements OnInit {
   successMessage: any;
   imageUrl: any;
   faCamera = faCamera;
-
-
+  gradeSelected: any;
+  image: any;
 
   constructor(private router: Router, private registerService: RegisterService, private activatedRoute: ActivatedRoute, private ref: ChangeDetectorRef) {
 
     this.form1 = true;
     this.form2 = false;
     this.form3 = false;
+    this.gradeSelected = false;
+    this.image = false;
 
     this.registerForm = new FormGroup({
       studentname: new FormControl(null, Validators.required),
@@ -82,6 +84,7 @@ export class RegisterComponent implements OnInit {
 
       }
       else {
+        this.gradeSelected = true;
         console.log("Error")
       }
     }
@@ -92,9 +95,11 @@ export class RegisterComponent implements OnInit {
         this.form1 = false;
         this.form2 = false;
         this.form3 = true;
+        this.image = false;
 
       }
       else {
+        this.image = true;
         console.log("Error")
       }
     }
@@ -117,6 +122,7 @@ export class RegisterComponent implements OnInit {
     
   }
   onChange(newValue) {
+    this.gradeSelected = false;
     console.log(newValue);
   }
   imageChanged(data) {

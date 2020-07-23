@@ -42,8 +42,9 @@
             <div class="controls">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="" aria-label="studentName"
-                  aria-describedby="basic-addon1" formControlName="studentname">
+                  aria-describedby="basic-addon1" formControlName="studentname" autofocus ng-class="{true:'focus',false:'blur'}[isFocused]" ng-focus="isFocused=true" ng-blur="isFocused=false">
                 <p *ngIf="isValid('studentname')" class="help-block  text-danger">Student's name must not be empty</p>
+                
               </div>
 
 
@@ -57,12 +58,13 @@
             <div class="controls">
               <div class="form-group">
 
-                <select class="form-control" id="grade" formControlName="grade" (ngModelChange)="onChange($event)">
-                  <option selected>Choose...</option>
+                <select class="form-control" id="grade" formControlName="grade" name="grade" (ngModelChange)="onChange($event)" required #grade>
+                  <option selected="selected" disabled>Choose...</option>
                   <option value="Grade 1">Grade 1</option>
                   <option value="Grade 2">Grade 2</option>
                 </select>
-                <p *ngIf="isValid('grade')" class="help-block text-danger">Grade Should not be blank</p>
+                <p *ngIf="gradeSelected" class="help-block text-danger">Grade Should not be blank</p>
+                
               </div>
             </div>
 
@@ -83,14 +85,13 @@
 
           <div class="card text-center" style="width: 50%;">
             <div class="card-body" style="align-items: center; justify-content: center;">
-              <h5 class="card-title">
-                <fa-icon [icon]="faCamera"></fa-icon>
-              </h5>
+              
               <img [hidden]="imageUrl" [src]="imageUrl"/>
               <app-camera-snapshot [imageUrl]="imageUrl" (imageCreated)="imageChanged($event)"></app-camera-snapshot>
               
             </div>
           </div>
+          <p *ngIf="image && imageUrl==null" class="help-block  text-danger">*Face Not recognized</p>
           <div class="control-group" style="margin-top: 2%;">
             <!-- Button -->
             <div class="controls">
@@ -108,9 +109,9 @@
             <div class="controls">
               <div class="form-group">
                 <input type="text" id="username" name="username" placeholder="" class="form-control"
-                  formControlName="username">
-                <p *ngIf="isValid('username')" class="help-block text-danger">Username can contain any letters or
-                  numbers, without spaces</p>
+                  formControlName="username" required>
+                <p *ngIf="isValid('username')" class="help-block text-danger">Username can not be empty
+                  numbers</p>
               </div>
 
 
@@ -123,7 +124,7 @@
             <div class="controls">
               <div class="form-group">
                 <input type="password" id="password" name="password" placeholder="" class="form-control"
-                  formControlName="password">
+                  formControlName="password" required>
                 <p *ngIf="isValid('password')" class="help-block text-danger">Password should not be empty
                 </p>
               </div>
@@ -138,7 +139,7 @@
             <div class="controls">
               <div class="form-group">
                 <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="form-control"
-                  formControlName="cnfpass" compare="password">
+                  formControlName="cnfpass" compare="password" required>
                 <p *ngIf="isValid('cnfpass')" class="help-block text-danger">Password does not match</p>
 
               </div>
@@ -152,7 +153,7 @@
             <div class="controls">
               <button type="button" class="btn btn-danger mybtn btn-lg" [routerLink]="['/login']">Cancel</button>
               <button type="button" class="btn btn-primary float-right mybtn btn-lg" (click)="submit()"
-                [disabled]="registerForm.invalid" data-toggle="modal" data-target="#exampleModal">Submit</button>
+                 data-toggle="modal" data-target="#exampleModal">Submit</button>
 
             </div>
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
