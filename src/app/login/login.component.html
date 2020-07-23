@@ -29,7 +29,7 @@
 
 <div class="container-fluid">
   <div class="row justify-content-around">
-    <div class="col-md-4" style="margin-top: 2%;">
+    <div class="col-md-4" style="margin-top: 1%;">
       <div class="d-flex justify-content-center ">
         <div class="container">
           <div id="first">
@@ -39,18 +39,19 @@
                   <h1>Student Login</h1>
 
                 </div>
-                <form class="form-horizontal" [formGroup]="faceLoginForm">
+                <form focusInvalidInput class="form-horizontal" [formGroup]="faceLoginForm" (ngSubmit)="facelogin()">
                   <div class="form-group">
                     <label for="studentname">Student Name</label>
                     <input type="text" name="studentname" class="form-control" id="studentname"
                       formControlName="studentname" aria-describedby="studentnameHelp" placeholder="Enter Student Name">
-                    <span *ngIf="isfilled('studentname')" class="help-block  text-danger">Student Name cannot be blank</span>
+                    <span *ngIf="isfilled('studentname') || validStudentName" class="help-block  text-danger"><small>* Required</small></span>
                   </div>
                   <div class="card text-center">
-                    <div class="card-body" style="align-items: center; justify-content: center;">
-                      <h5 class="card-title">
-                        <fa-icon [icon]="faCamera"></fa-icon>
-                      </h5>
+                    <div class="card-body"
+                      style="align-items: center; justify-content: center;padding-top: 10px;padding-bottom: 10px;" >
+
+                      <span *ngIf="validface" class="help-block  text-danger"><small>* Required</small></span>
+
                       <img [hidden]="imageUrl" [src]="imageUrl">
                       <app-camera-snapshot [imageUrl]="imageUrl" (imageCreated)="imageChanged($event)">
                       </app-camera-snapshot>
@@ -58,18 +59,22 @@
 
                     </div>
                   </div>
+                  <div class="col-md-12 text-center" *ngIf="face" style="margin-top: 4%;">
+                    <span class="help-block  text-danger">Invalid Credentials !!!</span>
+                  </div><br>
+                  <div class="buttons" style="margin-top: 2%;">
+                    <button class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
+                  </div>
                 </form>
               </div>
 
-              <div class="buttons">
-                <button class=" btn btn-block mybtn btn-primary tx-tfm" (click)="facelogin()">Login</button>
-              </div>
+              
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-4" style="margin-top: 2%;">
+    <div class="col-md-4" style="margin-top: 1%;">
       <div class="container">
         <div id="first">
           <div class="myform form">
@@ -79,18 +84,20 @@
               </div>
 
             </div>
-            <form [formGroup]="loginForm" style="margin-top: 6%;">
-              <div class="form-group" >
+            <form focusInvalidInput [formGroup]="loginForm" (ngSubmit)="login()" style="margin-top: 4%;">
+              <div class="form-group">
                 <label for="UserName">User Name</label>
                 <input type="text" name="UserName" formControlName="username" class="form-control" id="UserName"
-                  aria-describedby="UserNameHelp" placeholder="Enter Username">
-                <span *ngIf="isValid('username')" class="help-block  text-danger">Username cannot be blank</span>
+                  aria-describedby="UserNameHelp" placeholder="Enter Username" required>
+                <span *ngIf="isValid('username') || validUsername" class="help-block  text-danger"><small>* Required</small></span>
+                
               </div>
               <div class="form-group">
                 <label for="Password">Password</label>
                 <input type="password" name="password" id="password" formControlName="password" class="form-control"
                   aria-describedby="PasswordHelp" placeholder="Enter Password">
-                <span *ngIf="isValid('password')" class="help-block  text-danger">Password cannot be blank</span>
+                <span *ngIf="isValid('password') || validPass" class="help-block  text-danger"><small>* Required</small></span>
+                
               </div>
               <div class="form-group">
                 <label class="checkbox pull-left">
@@ -98,15 +105,18 @@
                   Remember me
                 </label>
               </div>
-              <div class="col-md-12 text-center form-group" style="margin-top: 3%;">
-                <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm" (click)="login()">Login</button>
+              <div class="col-md-12 text-center" *ngIf="credentials">
+                <span class="help-block  text-danger">Invalid Credentials !!!</span>
+              </div><br>
+              <div class="col-md-12 text-center">
+                <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
               </div>
               <div class="form-group" style="margin-top: 3%;">
                 <p class="text-center">
                   <a href="javascript:void();">Forgot Password?</a>
                 </p>
               </div>
-              <div class="col-md-12 " style="margin-top: 10%;">
+              <div class="col-md-12 " style="margin-top: 14%;">
                 <div class="login-or">
                   <hr class="hr-or">
                   <span class="span-or">or</span>

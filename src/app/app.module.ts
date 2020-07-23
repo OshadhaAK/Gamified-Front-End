@@ -18,6 +18,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {WebcamModule} from 'ngx-webcam';
 import {DataService} from './services/data.service';
 import { CameraSnapshotComponent } from './camera-snapshot/camera-snapshot.component';
+import { FormDirective } from './shared/form.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { CameraSnapshotComponent } from './camera-snapshot/camera-snapshot.compo
     Grade1Component,
     Grade2Component,
     CompareValidatorDirective,
-    CameraSnapshotComponent
+    CameraSnapshotComponent,
+    FormDirective
   ],
   imports: [
     FormsModule,

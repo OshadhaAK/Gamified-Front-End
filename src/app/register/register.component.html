@@ -30,7 +30,7 @@
 
   <div class="jumbotron vertical-center" style="padding-bottom: 32px; padding-top: 32px;">
 
-    <form class="form-horizontal" [formGroup]="registerForm">
+    <form focusInvalidInput class="form-horizontal" [formGroup]="registerForm">
       <fieldset>
 
         <div *ngIf="form1">
@@ -42,8 +42,10 @@
             <div class="controls">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="" aria-label="studentName"
-                  aria-describedby="basic-addon1" formControlName="studentname">
+                  aria-describedby="basic-addon1" formControlName="studentname" autofocus
+                  ng-class="{true:'focus',false:'blur'}[isFocused]" ng-focus="isFocused=true" ng-blur="isFocused=false">
                 <p *ngIf="isValid('studentname')" class="help-block  text-danger">Student's name must not be empty</p>
+
               </div>
 
 
@@ -57,12 +59,14 @@
             <div class="controls">
               <div class="form-group">
 
-                <select class="form-control" id="grade" formControlName="grade" (ngModelChange)="onChange($event)">
-                  <option selected>Choose...</option>
+                <select class="form-control" id="grade" formControlName="grade" name="grade"
+                  (ngModelChange)="onChange($event)" required #grade>
+                  <option selected="selected" disabled>Choose...</option>
                   <option value="Grade 1">Grade 1</option>
                   <option value="Grade 2">Grade 2</option>
                 </select>
-                <p *ngIf="isValid('grade')" class="help-block text-danger">Grade Should not be blank</p>
+                <p *ngIf="gradeSelected" class="help-block text-danger">Grade Should not be blank</p>
+
               </div>
             </div>
 
@@ -78,19 +82,27 @@
           </div>
         </div>
         <div *ngIf="form2">
-          <p class="lead">Face the student's face in front of the camera for face identification</p>
+          <p class="lead">Face the student's face in front of the camera for face identification
+            <button class="btn btn-primary float-right" (click)="back()">
+              <fa-icon [icon]="faChevronLeft"></fa-icon>
+              
+            </button>
+          </p>
           <hr class="my-4">
 
           <div class="card text-center" style="width: 50%;">
             <div class="card-body" style="align-items: center; justify-content: center;">
-              <h5 class="card-title">
-                <fa-icon [icon]="faCamera"></fa-icon>
-              </h5>
-              <img [hidden]="imageUrl" [src]="imageUrl"/>
+
+              <img [hidden]="imageUrl" [src]="imageUrl" />
               <app-camera-snapshot [imageUrl]="imageUrl" (imageCreated)="imageChanged($event)"></app-camera-snapshot>
-              
+
             </div>
           </div>
+          <div *ngIf="registerService.showSpinner" class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <p *ngIf="image && !imageUrl" class="help-block  text-danger">* Required</p>
+          <p *ngIf="validface && imageUrl" class="help-block  text-danger">* No Face Detected</p>
           <div class="control-group" style="margin-top: 2%;">
             <!-- Button -->
             <div class="controls">
@@ -108,9 +120,10 @@
             <div class="controls">
               <div class="form-group">
                 <input type="text" id="username" name="username" placeholder="" class="form-control"
-                  formControlName="username">
-                <p *ngIf="isValid('username')" class="help-block text-danger">Username can contain any letters or
-                  numbers, without spaces</p>
+                  formControlName="username" required>
+                <!-- <p *ngIf="isValid('username')" class="help-block text-danger">Username can not be empty</p> -->
+                <p *ngIf="registerForm.get('username').errors?.required && validusername"
+                  class="help-block text-danger">* Required</p>
               </div>
 
 
@@ -123,9 +136,11 @@
             <div class="controls">
               <div class="form-group">
                 <input type="password" id="password" name="password" placeholder="" class="form-control"
-                  formControlName="password">
-                <p *ngIf="isValid('password')" class="help-block text-danger">Password should not be empty
-                </p>
+                  formControlName="password" required>
+                <!-- <p *ngIf="isValid('password')" class="help-block text-danger">Password should not be empty
+                </p> -->
+                <p *ngIf="(registerForm.get('password').errors?.required) && validpass" class="help-block text-danger">*
+                  Required</p>
               </div>
 
 
@@ -138,9 +153,11 @@
             <div class="controls">
               <div class="form-group">
                 <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="form-control"
-                  formControlName="cnfpass" compare="password">
-                <p *ngIf="isValid('cnfpass')" class="help-block text-danger">Password does not match</p>
-
+                  formControlName="cnfpass" compare="password" required>
+                <p *ngIf="isValid('cnfpass') || (registerForm.get('cnfpass').errors?.required && validcnfpass)"
+                  class="help-block text-danger">Password does not match</p>
+                <!-- <p *ngIf="registerForm.get('cnfpass').errors?.required && validcnfpass" class="help-block text-danger">*
+                  Required</p> -->
               </div>
 
 
@@ -150,28 +167,51 @@
           <div class="control-group" style="margin-top: 3%;">
             <!-- Button -->
             <div class="controls">
-              <button type="button" class="btn btn-danger mybtn btn-lg" [routerLink]="['/login']">Cancel</button>
-              <button type="button" class="btn btn-primary float-right mybtn btn-lg" (click)="submit()"
-                [disabled]="registerForm.invalid" data-toggle="modal" data-target="#exampleModal">Submit</button>
+              <button type="button" class="btn btn-danger mybtn btn-lg" data-toggle="modal"
+                data-target="#exampleModalCenter">Cancel</button>
+              <button type="button" class="btn btn-primary float-right mybtn btn-lg" data-toggle="modal"
+                (click)="isSubmitted()" data-target="#exampleModal">Submit</button>
 
             </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
+            <div *ngIf="success" class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Welcome !!</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
+
                     You have registered successfully! Please log in again!
                   </div>
+
                   <div class="modal-footer">
 
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"
-                      [routerLink]="['/login']">OK</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" [routerLink]="['/login']"
+                      (click)="submit()">OK</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Do you really want to quit?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Press Yes to quit
+                  </div>
+                  <div class="modal-footer flex">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">NO</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="exit()">YES</button>
                   </div>
                 </div>
               </div>

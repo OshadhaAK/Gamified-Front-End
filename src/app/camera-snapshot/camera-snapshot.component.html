@@ -1,5 +1,6 @@
+<p style="margin-bottom: 0px;"><small>Center your face to the screen and look straight at the camera</small></p>
 <div class="camera-snapshot" (click)="getCameraImage()" style="position: relative;">
-    
+    <p style="margin-bottom: 0px;"><small>Click on camera to detect face</small></p>
     <canvas [hidden]="!imageUrl" #canvas width="640" height="480"></canvas>
     <video [hidden]="imageUrl" width="100%" autoplay #video></video>
 </div>
