@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { isFormattedError } from '@angular/compiler';
 import { RegisterService } from '../services/register.service';
 import { error } from '@angular/compiler/src/util';
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
   multipleImages = [];
   successMessage: any;
   imageUrl: any;
-  faCamera = faCamera;
+  faChevronLeft = faChevronLeft;
   gradeSelected: any;
   image: any;
   validface: any;
@@ -158,7 +158,7 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  isSubmitted(){
+  isSubmitted() {
     if (this.registerForm.valid) {
       this.successMessage = 'Registration Success!';
       this.success = true;
@@ -174,7 +174,7 @@ export class RegisterComponent implements OnInit {
       this.validcnfpass = true;
     }
   }
-  
+
   onChange(newValue) {
     this.gradeSelected = false;
     console.log(newValue);
@@ -187,8 +187,14 @@ export class RegisterComponent implements OnInit {
     this.registerService.hideLoadingSpinner();
   }
 
-  exit(){
+  exit() {
     window.location.reload();
+  }
+
+  back() {
+    this.form1 = true;
+    this.form2 = false;
+    this.form3 = false;
   }
   /*  selectImage(event) {
      if (event.target.files.length > 0) {

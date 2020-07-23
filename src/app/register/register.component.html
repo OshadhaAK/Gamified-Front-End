@@ -82,7 +82,12 @@
           </div>
         </div>
         <div *ngIf="form2">
-          <p class="lead">Face the student's face in front of the camera for face identification</p>
+          <p class="lead">Face the student's face in front of the camera for face identification
+            <button class="btn btn-primary float-right" (click)="back()">
+              <fa-icon [icon]="faChevronLeft"></fa-icon>
+              
+            </button>
+          </p>
           <hr class="my-4">
 
           <div class="card text-center" style="width: 50%;">
@@ -164,8 +169,8 @@
             <div class="controls">
               <button type="button" class="btn btn-danger mybtn btn-lg" data-toggle="modal"
                 data-target="#exampleModalCenter">Cancel</button>
-              <button type="button" class="btn btn-primary float-right mybtn btn-lg" data-toggle="modal" (click)="isSubmitted()"
-                data-target="#exampleModal">Submit</button>
+              <button type="button" class="btn btn-primary float-right mybtn btn-lg" data-toggle="modal"
+                (click)="isSubmitted()" data-target="#exampleModal">Submit</button>
 
             </div>
             <div *ngIf="success" class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
