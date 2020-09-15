@@ -12,7 +12,7 @@ export class RegisterService {
   constructor(private http: HttpClient) { }
 
   register(body: any) {
-    console.log('hit')
+    console.log('hit:', body)
     return this.http.post(this.url + 'register', body, {
       observe: 'body'
     });

@@ -51,7 +51,8 @@ export class RegisterComponent implements OnInit {
       username: new FormControl(null, Validators.required),
       faceId: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
-      cnfpass: new FormControl(null, Validators.required)
+      cnfpass: new FormControl(null, Validators.required),
+      image: new FormControl(null, Validators.required)
     });
 
     this.registerForm.controls.password.valueChanges.subscribe(
@@ -111,6 +112,7 @@ export class RegisterComponent implements OnInit {
           console.log(data);
 
           this.registerForm.controls['faceId'].setValue(data);
+          this.registerForm.controls['image'].setValue(this.imageUrl);
           this.form1 = false;
           this.form2 = false;
           this.form3 = true;
